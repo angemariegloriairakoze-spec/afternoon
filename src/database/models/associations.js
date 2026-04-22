@@ -1,0 +1,71 @@
+import User from "./user.js";
+import Product from "./product.js";
+import Order from "./order.js";
+import Payment from "./payment.js";
+
+/*
+====================================
+USER ↔ ORDER
+One user can make many orders
+====================================
+*/
+
+User.hasMany(Order, {
+    foreignKey: "userId"
+});
+
+Order.belongsTo(User, {
+    foreignKey: "userId"
+});
+
+
+/*
+====================================
+PRODUCT ↔ ORDER
+One product can be ordered many times
+Each order belongs to one product
+====================================
+*/
+
+Product.hasMany(Order, {
+    foreignKey: "productId"
+});
+
+Order.belongsTo(Product, {
+    foreignKey: "productId"
+});
+
+
+/*
+====================================
+SELLER ↔ ORDER
+Seller receives orders for approval
+(forShop in Product = seller id)
+====================================
+*/
+
+User.hasMany(Order, {
+    foreignKey: "sellerId",
+    as: "sellerOrders"
+});
+
+Order.belongsTo(User, {
+    foreignKey: "sellerId",
+    as: "seller"
+});
+
+
+/*
+====================================
+ORDER ↔ PAYMENT
+One order has one payment
+====================================
+*/
+
+Order.hasOne(Payment, {
+    foreignKey: "orderId"
+});
+
+Payment.belongsTo(Order, {
+    foreignKey: "orderId"
+});

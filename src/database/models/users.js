@@ -42,7 +42,7 @@ User.init({
        type:DataTypes.DATE,
        allowNull:true
     },
-    type:{
+    role:{
         type:DataTypes.ENUM("admin","customer","seller","delivery"),
         allowNull:false,
         defaultValue:"customer"

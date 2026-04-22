@@ -1,7 +1,9 @@
 import sequelize from "../config/db.js";
-import createProductTable from "../database/migrations/products.js";
+import { createProductTable } from "../database/migrations/products.js";
 import { createUserTable } from "../database/migrations/users.js";
+import {createOrderTable} from "../database/migrations/orders.js";
 import"../database/models/index.js";
+import { createShopTable } from "../database/migrations/shop.js";
 
 const syncDatabase=async()=>{
     try {
@@ -10,6 +12,8 @@ const syncDatabase=async()=>{
         console.log("database connection established successfully");
         await createUserTable();
         await createProductTable();
+        await createOrderTable();
+        await createShopTable();
         await sequelize.sync({logging:false});
          console.log("Database synced successfully 🔥🔥🔥🔥🔥🔥");
          process.exit(0);
